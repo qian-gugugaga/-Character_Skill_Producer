@@ -29,6 +29,18 @@ CSP 会启动 5 个并行 Agent 搜索萌娘百科、Wikipedia、Fandom Wiki 等
 
 **需要网页搜索 skill。** 使用前请确保已安装 WebSearch 或等效 skill。
 
+## 预置角色 Skill
+
+| 角色 | 作品 | Skill 目录 |
+|------|------|-----------|
+| 高松灯 | BanG Dream! It's MyGO!!!!! | `examples/takamatsu-tomori/` |
+| 椎名立希 | BanG Dream! It's MyGO!!!!! | `examples/taki-shiina/` |
+| 要乐奈 | BanG Dream! It's MyGO!!!!! | `examples/kaname-rana/` |
+| 长崎爽世 | BanG Dream! It's MyGO!!!!! | `examples/nagasaki-soyo/` |
+| 千早爱音 | BanG Dream! It's MyGO!!!!! | `examples/chihaya-anon/` |
+
+使用方式：将对应目录复制到 `.claude/skills/<name>/`，然后通过触发词调用角色。
+
 ## 项目结构
 
 ```
@@ -41,7 +53,12 @@ CSP 会启动 5 个并行 Agent 搜索萌娘百科、Wikipedia、Fandom Wiki 等
 │   ├── quality_check.py              # 质量验证
 │   └── merge_research.py             # 调研摘要
 └── examples/
-    └── takamatsu-tomori/             # 高松灯 示例 Skill
+    ├── csp/                           # CSP 自我描述
+    ├── chihaya-anon/                  # 千早爱音
+    ├── kaname-rana/                   # 要乐奈
+    ├── nagasaki-soyo/                 # 长崎爽世
+    ├── takamatsu-tomori/              # 高松灯
+    └── taki-shiina/                   # 椎名立希
 ```
 
 ## 致谢
