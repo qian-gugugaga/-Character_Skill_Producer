@@ -12,7 +12,7 @@ skills add qian-gugugaga/-Character_Skill_Producer
 
 # 或手动克隆
 git clone https://github.com/qian-gugugaga/-Character_Skill_Producer.git
-cp csp/SKILL.md ~/.claude/skills/csp/SKILL.md
+cp -r examples/csp ~/.claude/skills/csp
 ```
 
 ## 使用
