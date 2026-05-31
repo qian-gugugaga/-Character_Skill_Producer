@@ -8,6 +8,11 @@ CSP (Character Skill Producer) is an open-source **meta-skill** — a SKILL.md f
 
 The repo is at `github.com/qian-gugugaga/Character_Skill_Producer`. Generated skills follow the AgentSkills standard (YAML frontmatter + Markdown body).
 
+## Platform Notes
+
+- Shell is bash on Windows (Git Bash / MSYS). Use Unix-style syntax: `/dev/null` not `NUL`, forward slashes in paths.
+- `python3` is not aliased on this machine — invoke `python` for the scripts below. The CSP `SKILL.md` examples sometimes show `python3`; treat that as a Linux convention and substitute `python` here.
+
 ## Commands
 
 ```bash
@@ -43,7 +48,7 @@ When a user says "generate a skill for X character", CSP runs:
 | `PRD.md` | Product definition (English) — core goals, competitive landscape, schema |
 | `references/skill-template.md` | Template for generated character SKILL.md files |
 | `references/distillation-framework.md` | Methodology for extracting behavior patterns from research |
-| `push_api.py` | One-off: push to GitHub via REST API when git protocol is blocked |
+| `push_api.py` | One-off script that pushes to GitHub via REST API when git protocol is blocked. **Stale**: hardcodes a specific file list (only Tomori's research files), so the file list must be updated before any reuse — don't run as-is. |
 
 ### Generated Skill Structure
 
@@ -73,7 +78,23 @@ Skills must be **self-contained** — copying the directory is all that's needed
 
 ### Skill Deployment
 
-Generated skills live in `examples/<slug>/` (source) and are copied to `.claude/skills/<slug>/` (installed). The `.claude/` directory is gitignored. Pre-built examples include characters from BanG Dream! It's MyGO!!!!! (Tomori, Taki, Rana, Soyo, Anon).
+Generated skills live in `examples/<slug>/` (source) and are copied to `.claude/skills/<slug>/` (installed). The `.claude/` directory is gitignored.
+
+Pre-built examples currently in `examples/`:
+
+- `csp/` — CSP's own self-skill (a CSP-distilled version of CSP). **Self-contained**: bundles its own copies of `scripts/` and `references/` so the skill works standalone when installed. When editing the canonical pipeline files at the repo root (`SKILL.md`, `references/*.md`, `scripts/*.py`), keep `examples/csp/` in sync — otherwise the installable CSP diverges from source. See commit `c8a9d68` for the self-containment fix.
+- BanG Dream! It's MyGO!!!!! members: `takamatsu-tomori/`, `taki-shiina/`, `kaname-rana/`, `nagasaki-soyo/`, `chihaya-anon/`
+- BanG Dream! Ave Mujica members (cross-media with MyGO via CRYCHIC backstory): `togawa-sakiko/`, `mutsumi-wakaba/`
+
+### Cross-Media Franchises
+
+`SKILL.md` has a dedicated branch for "跨作品/跨团角色" (cross-work / cross-band characters) — applies to BanG Dream!, Love Live!, Project Sekai, 少女☆歌剧, etc. For these characters the pipeline expands:
+
+- Agent 1 (Setting) and Agent 4 (Relationships) must search across all related works the character appears in (anime + spinoff anime + mobile game + stage adaptations).
+- Game/spinoff content (Garupa card stories, Bestdori event scripts, area dialogues) is a legitimate research source at "medium" priority — same tier as Bangumi/AniDB. It's often the richest source of *daily-life* behavior that the main anime doesn't have screen time for.
+- The honesty boundary must declare which works/media the research covered and which it didn't (e.g., "anime only, no Garupa events").
+
+This is a real architectural branch, not scope creep — Sakiko/Mutsumi skills explicitly span MyGO + Ave Mujica + CRYCHIC backstory, and stripping cross-media research would make them shallow. Don't simplify the pipeline by removing this when working in this domain.
 
 ### Language Strategy
 
