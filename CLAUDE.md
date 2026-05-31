@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 CSP (Character Skill Producer) is an open-source **meta-skill** — a SKILL.md file that gives Claude Code the ability to generate anime/game character role-playing skills. When loaded, the agent can search authoritative sources (Moegirl Wiki, Wikipedia, Fandom Wiki, Bangumi), cross-validate findings, distill behavior patterns, and produce executable character SKILL.md files.
 
-The repo is at `github.com/qian-gugugaga/-Character_Skill_Producer`. Generated skills follow the AgentSkills standard (YAML frontmatter + Markdown body).
+The repo is at `github.com/qian-gugugaga/Character_Skill_Producer`. Generated skills follow the AgentSkills standard (YAML frontmatter + Markdown body).
 
 ## Commands
 

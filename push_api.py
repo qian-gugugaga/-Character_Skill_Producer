@@ -3,7 +3,7 @@
 import os, json, base64, urllib.request, sys
 
 TOKEN = sys.argv[1]
-REPO = "qian-gugugaga/-Character_Skill_Producer"
+REPO = "qian-gugugaga/Character_Skill_Producer"
 API = "https://api.github.com"
 HEADERS = {
     "Authorization": f"Bearer {TOKEN}",
