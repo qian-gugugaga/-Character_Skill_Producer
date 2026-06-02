@@ -2,3 +2,18 @@
 .DS_Store
 __pycache__/
 *.pyc
+
+# Internal docs (not needed for skill installation)
+PRD.md
+push_api.py
+
+# Node / docx generation (one-off scripts, not part of skill system)
+node_modules/
+generated-docx/
+generate_*.js
+package.json
+package-lock.json
+
+# Temp files
+*.txt
+!references/**/*.txt
