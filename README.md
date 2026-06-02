@@ -137,7 +137,7 @@ BanG Dream! 的角色跨 MyGO!!!!! 和 Ave Mujica 两部动画，加上 CRYCHIC 
 ```
 ├── SKILL.md                          # CSP 主 skill（触发词：/csp）
 ├── CLAUDE.md                         # 项目指南
-├── PRD.md                            # 产品定义（英文）
+├── README.md                         # 本文件
 ├── references/
 │   ├── distillation-framework.md     # 行为蒸馏方法论
 │   └── skill-template.md             # 生成模板

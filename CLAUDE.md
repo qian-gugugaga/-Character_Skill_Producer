@@ -51,11 +51,11 @@ When a user says "generate a skill for X character", CSP runs:
 | File | Role |
 |------|------|
 | `SKILL.md` | The CSP meta-skill itself — triggers on `/csp` or "生成XX的skill" |
-| `PRD.md` | Product definition (English) — core goals, competitive landscape, schema |
 | `references/skill-template.md` | Template for generated character SKILL.md files |
 | `references/distillation-framework.md` | Methodology for extracting behavior patterns from research |
+| `scripts/quality_check.py` | Quality verification for generated skills (7 checks) |
+| `scripts/merge_research.py` | Summarize research results from references/research/ directory |
 | `scripts/moegirl_api.py` | Fetches Moegirl Wiki entries via MediaWiki API. Use when `WebFetch` is blocked by safety verification. Supports `--intro`, `--full`, `--search`, `--wikitext` modes. Outputs JSON to stdout. |
-| `push_api.py` | One-off script that pushes to GitHub via REST API when git protocol is blocked. **Stale**: hardcodes a specific file list (only Tomori's research files), so the file list must be updated before any reuse — don't run as-is. |
 
 ### Generated Skill Structure
 
