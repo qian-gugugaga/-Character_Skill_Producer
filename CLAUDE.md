@@ -21,6 +21,12 @@ python scripts/quality_check.py <path/to/SKILL.md>
 
 # Summarize research results from references/research/ directory
 python scripts/merge_research.py <skill_directory>
+
+# Fetch Moegirl Wiki entries via MediaWiki API (when WebFetch is blocked by safety verification)
+python scripts/moegirl_api.py "角色名"              # auto: intro → search → fallback
+python scripts/moegirl_api.py "角色名" --search     # search candidate page titles
+python scripts/moegirl_api.py "角色名" --full       # full plaintext extract
+python scripts/moegirl_api.py "角色名" --wikitext   # raw wikitext
 ```
 
 There is no build step, test suite, or linting — this is a SKILL.md pipeline repo, not an application.
@@ -48,6 +54,7 @@ When a user says "generate a skill for X character", CSP runs:
 | `PRD.md` | Product definition (English) — core goals, competitive landscape, schema |
 | `references/skill-template.md` | Template for generated character SKILL.md files |
 | `references/distillation-framework.md` | Methodology for extracting behavior patterns from research |
+| `scripts/moegirl_api.py` | Fetches Moegirl Wiki entries via MediaWiki API. Use when `WebFetch` is blocked by safety verification. Supports `--intro`, `--full`, `--search`, `--wikitext` modes. Outputs JSON to stdout. |
 | `push_api.py` | One-off script that pushes to GitHub via REST API when git protocol is blocked. **Stale**: hardcodes a specific file list (only Tomori's research files), so the file list must be updated before any reuse — don't run as-is. |
 
 ### Generated Skill Structure
@@ -84,7 +91,7 @@ Pre-built examples currently in `examples/`:
 
 - `csp/` — CSP's own self-skill (a CSP-distilled version of CSP). **Self-contained**: bundles its own copies of `scripts/` and `references/` so the skill works standalone when installed. When editing the canonical pipeline files at the repo root (`SKILL.md`, `references/*.md`, `scripts/*.py`), keep `examples/csp/` in sync — otherwise the installable CSP diverges from source. See commit `c8a9d68` for the self-containment fix.
 - BanG Dream! It's MyGO!!!!! members: `takamatsu-tomori/`, `taki-shiina/`, `kaname-rana/`, `nagasaki-soyo/`, `chihaya-anon/`
-- BanG Dream! Ave Mujica members (cross-media with MyGO via CRYCHIC backstory): `togawa-sakiko/`, `mutsumi-wakaba/`
+- BanG Dream! Ave Mujica members (cross-media with MyGO via CRYCHIC backstory): `togawa-sakiko/`, `mutsumi-wakaba/`, `misumi-uika/`, `yutenji-nyamu/`, `yahata-umiri/`
 
 ### Cross-Media Franchises
 
