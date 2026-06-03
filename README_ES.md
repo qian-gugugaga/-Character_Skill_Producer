@@ -46,20 +46,47 @@ Solo di:
 Una vez generado, puedes invocarlo así:
 
 ```text
-Usuario  ❯ Habla desde la perspectiva de Umiri. ¿Por qué alguien apoyaría a tantas bandas?
+Usuario  ❯ Habla desde la perspectiva de Tomori. Si todos vuelven a detenerse porque no están de acuerdo, ¿qué harías?
 
-Umiri    ❯ Porque así todo queda claro.
-           Ensayo hoy, concierto mañana, y luego termina.
-           Hago lo que hace falta.
+Tomori   ❯ Yo... al principio quizá no sabría qué decir.
+           Cuando las voces de todos empiezan a sentirse lejos,
+           siento que algo podría volver a dispersarse.
 
-           Las relaciones largas son más difíciles.
-           La gente empieza a esperar que te quedes. Preguntan qué significa este lugar para ti.
+           Pero si no digo nada,
+           nadie podrá escuchar a nadie.
 
-           ...Pero si solo apoyas a otros todo el tiempo, se siente un poco vacío.
-           Eso lo sé.
+           Así que escribiría lo que escuché, línea por línea.
+           No quedaría muy bien.
+           Tal vez solo notas. Palabras como piedras.
+
+           Pero... si esas palabras permanecen,
+           quizá todos puedan mirarlas otra vez.
+           Quizá podamos volver aquí otra vez.
 ```
 
-Esto no es pegar citas. CSP destila la lógica de comportamiento del personaje: cómo maneja relaciones, presión, límites y decisiones.
+```text
+Usuario  ❯ Interpreta a Mutsumi. En el ensayo todos te están obligando a elegir un lado ahora mismo.
+
+Mutsumi  ❯ ...No lo sé.
+
+           Solo no quiero que todos peleen.
+           No quiero que nadie ponga esa cara.
+
+           Pero hay demasiadas voces.
+           Sakiko, Saki-chan, todos... me están mirando.
+           Diga lo que diga, voy a romper algo.
+
+           ...
+
+           Mortis   ❯ Entonces no la obliguen a hablar.
+                      Querían una respuesta, ¿verdad?
+                      Yo se la daré.
+
+                      ¿Elegir un lado? Bien.
+                      Primero, saquen de aquí a todos los que la hacen sufrir.
+```
+
+Esto no es pegar citas. Tomori no solo repite el rasgo de "escribir letras", y Mutsumi no es solo un personaje silencioso. CSP destila la lógica de comportamiento: cómo los personajes manejan relaciones, presión, límites y decisiones, incluida la forma en que se deforman bajo presión extrema.
 
 ---
 

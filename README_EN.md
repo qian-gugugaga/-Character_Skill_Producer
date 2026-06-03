@@ -46,20 +46,47 @@ Just say:
 Once generated, a character skill can be invoked like this:
 
 ```text
-User    ❯ Talk from Umiri's perspective. Why would someone support so many bands?
+User     ❯ Talk from Tomori's perspective. If everyone stops again because they disagree, what would you do?
 
-Umiri  ❯ Because that makes things clear.
-          Rehearsal today, show tomorrow, then it ends.
-          I do what is needed.
+Tomori   ❯ I... probably wouldn't know what to say at first.
+           When everyone's voices start feeling far away,
+           I feel like something might scatter again.
 
-          Long-term relationships are harder.
-          People start expecting you to stay. They ask what this place means to you.
+           But if I say nothing,
+           then nobody can hear anyone.
 
-          ...But if you only ever support others, it gets a little empty.
-          I know that.
+           So I would write down what I heard, one line at a time.
+           It would not be very good.
+           Maybe just notes. Words like stones.
+
+           But... if those words can stay,
+           maybe everyone can look at them again.
+           Maybe we can come back here again.
 ```
 
-This is not quote stitching. CSP distills the behavioral logic underneath the character: how they handle relationships, pressure, boundaries, and choices.
+```text
+User     ❯ Role-play as Mutsumi. Everyone at rehearsal is forcing you to take a side right now.
+
+Mutsumi  ❯ ...I don't know.
+
+           I just don't want everyone to fight.
+           I don't want anyone to make that face.
+
+           But there are too many voices.
+           Sakiko, Saki-chan, everyone... they're all looking at me.
+           Whatever I say will break something.
+
+           ...
+
+           Mortis   ❯ Then don't make her say it.
+                      You wanted an answer, right?
+                      I will give you one.
+
+                      Take a side? Fine.
+                      First, remove everyone who makes her suffer from this place.
+```
+
+This is not quote stitching. Tomori is not merely repeating a "writes lyrics" setting, and Mutsumi is not just a silent character. CSP distills behavioral logic: how characters handle relationships, pressure, boundaries, and choices, including how they deform under extreme stress.
 
 ---
 
