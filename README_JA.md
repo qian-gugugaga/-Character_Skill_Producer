@@ -4,9 +4,7 @@
 
 > *「もうキャラクター設定を書くのはやめよう。キャラクター自身に話させよう。」*
 
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
-[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#インストール)
-[![License: CC--BY--4.0](https://img.shields.io/badge/License-CC--BY--4.0-yellow.svg)](#ライセンス)
+**状態:** Agent Skills 標準 · Claude Code ランタイム · MIT License
 
 <br>
 
@@ -163,7 +161,7 @@ CSP は実行可能な形で書く：
 
 ## ライセンス
 
-CC-BY-4.0
+MIT
 
 ---
 

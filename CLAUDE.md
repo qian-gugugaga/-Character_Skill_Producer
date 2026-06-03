@@ -4,105 +4,124 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-CSP (Character Skill Producer) is an open-source **meta-skill** — a SKILL.md file that gives Claude Code the ability to generate anime/game character role-playing skills. When loaded, the agent can search authoritative sources (Moegirl Wiki, Wikipedia, Fandom Wiki, Bangumi), cross-validate findings, distill behavior patterns, and produce executable character SKILL.md files.
+CSP (Character Skill Producer) is an open-source **meta-skill** that turns anime/game fictional characters into executable Agent Skills. Given a character name and series, it researches authoritative sources, cross-validates evidence, distills behavior patterns, and outputs a runnable `SKILL.md` character role-playing skill.
 
-The repo is at `github.com/qian-gugugaga/Character_Skill_Producer`. Generated skills follow the AgentSkills standard (YAML frontmatter + Markdown body).
+This repo is `github.com/qian-gugugaga/Character_Skill_Producer`. Generated skills follow the AgentSkills convention: YAML frontmatter plus Markdown body, with research artifacts kept under `references/research/` for transparency.
+
+CSP is not a character-card generator and does not target real-person distillation. The project is focused on 二次元 anime/manga/game characters and executable behavior instructions rather than static profiles or archetype labels.
 
 ## Platform Notes
 
 - Shell is bash on Windows (Git Bash / MSYS). Use Unix-style syntax: `/dev/null` not `NUL`, forward slashes in paths.
-- `python3` is not aliased on this machine — invoke `python` for the scripts below. The CSP `SKILL.md` examples sometimes show `python3`; treat that as a Linux convention and substitute `python` here.
+- `python3` is not aliased on this machine. Use `python` for local commands, even when docs or script headers show `python3`.
+- `package.json` currently only declares the `docx` dependency; there is no Node build/test script for CSP itself.
 
 ## Commands
 
 ```bash
+# Install package dependencies if needed by local tooling
+npm install
+
 # Quality-check a generated skill (7 checks: behavior patterns, expression, contradictions, etc.)
 python scripts/quality_check.py <path/to/SKILL.md>
 
-# Summarize research results from references/research/ directory
+# Summarize research results from references/research/ under a generated skill directory
 python scripts/merge_research.py <skill_directory>
 
-# Fetch Moegirl Wiki entries via MediaWiki API (when WebFetch is blocked by safety verification)
+# Fetch Moegirl Wiki entries through the MediaWiki API
 python scripts/moegirl_api.py "角色名"              # auto: intro → search → fallback
-python scripts/moegirl_api.py "角色名" --search     # search candidate page titles
+python scripts/moegirl_api.py "角色名" --intro      # intro extract for a known title
+python scripts/moegirl_api.py "角色名" --search     # candidate page titles
 python scripts/moegirl_api.py "角色名" --full       # full plaintext extract
-python scripts/moegirl_api.py "角色名" --wikitext   # raw wikitext
+python scripts/moegirl_api.py "角色名" --wikitext   # raw wikitext fallback
 ```
 
-There is no build step, test suite, or linting — this is a SKILL.md pipeline repo, not an application.
+There is no build step, lint command, or test suite for this repo. The closest validations are `quality_check.py` for generated skills and `merge_research.py` for research completeness.
 
 ## Architecture
 
-### CSP Meta-Skill Pipeline (8 steps)
+### Canonical Source vs Installable Skill
 
-When a user says "generate a skill for X character", CSP runs:
-
-1. **Requirement confirmation** — character name, series, focus direction
-2. **Directory creation** — `.claude/skills/<slug>/` with `references/research/` subdir
-3. **5 parallel research agents** — Setting (01), Personality (02), Expression (03), Relationships (04), Key Scenes (05). Each writes its findings to `references/research/0X-*.md`
-4. **Research quality checkpoint** — `merge_research.py` summarizes source counts, key findings, contradictions, missing dimensions
-5. **Behavioral distillation** — extract behavior patterns (dual verification: cross-scene recurrence + executability), expression texture, social cognition, decision logic
-6. **Distillation confirmation** — user reviews extracted patterns before assembly
-7. **SKILL.md assembly** — fill `references/skill-template.md` from distillation results
-8. **Quality verification** — `quality_check.py` runs 7 checks; spawn sub-agent for known-scene replay and edge-case inference
-
-### Key Files
+The root files are the canonical source for CSP development:
 
 | File | Role |
 |------|------|
-| `SKILL.md` | The CSP meta-skill itself — triggers on `/csp` or "生成XX的skill" |
-| `references/skill-template.md` | Template for generated character SKILL.md files |
+| `SKILL.md` | Main CSP meta-skill and pipeline instructions |
+| `references/skill-template.md` | Template used to assemble generated character skills |
 | `references/distillation-framework.md` | Methodology for extracting behavior patterns from research |
-| `scripts/quality_check.py` | Quality verification for generated skills (7 checks) |
-| `scripts/merge_research.py` | Summarize research results from references/research/ directory |
-| `scripts/moegirl_api.py` | Fetches Moegirl Wiki entries via MediaWiki API. Use when `WebFetch` is blocked by safety verification. Supports `--intro`, `--full`, `--search`, `--wikitext` modes. Outputs JSON to stdout. |
+| `scripts/quality_check.py` | Quality gate for generated character skills |
+| `scripts/merge_research.py` | Research-summary/checkpoint generator |
+| `scripts/moegirl_api.py` | Moegirlpedia MediaWiki API wrapper |
+| `PRD.md` | Product definition and long-term scope, in English |
+
+`examples/csp/` is the self-contained installable CSP skill. It bundles its own copies of `SKILL.md`, `references/`, and `scripts/` so users can copy or install it independently. When changing root `SKILL.md`, `references/*.md`, or `scripts/*.py`, keep the corresponding files in `examples/csp/` in sync or the published skill will diverge from the source.
+
+Generated character examples live in `examples/<slug>/`. Installed local skills live in `.claude/skills/<slug>/`; `.claude/` is gitignored and should not be treated as source.
+
+### CSP Meta-Skill Pipeline
+
+When a user asks to generate a character skill, CSP follows this staged flow:
+
+1. **Requirement confirmation** — character name, series, optional focus, and whether the user has official local materials.
+2. **Directory creation** — create the skill directory and `references/research/` before research begins.
+3. **5 parallel research agents** — Setting (`01-setting.md`), Personality (`02-personality.md`), Expression (`03-expression.md`), Relationships (`04-relationships.md`), Key Scenes (`05-key-scenes.md`). Each agent must write its findings to the corresponding file.
+4. **Research quality checkpoint** — use `merge_research.py` or an equivalent summary to report source count, key findings, contradictions, and missing dimensions before distillation.
+5. **Behavioral distillation** — extract behavior patterns, expression texture, social cognition, decision logic, hard constraints, and honesty boundaries. Core behavior patterns should pass both cross-scene recurrence and executability checks.
+6. **Distillation confirmation** — summarize the extracted patterns and limits for user confirmation before assembly.
+7. **SKILL.md assembly** — fill `references/skill-template.md` from the distilled material.
+8. **Quality verification** — run `quality_check.py` and use independent known-scene replay / edge-case inference where appropriate. Show verification results before calling the work complete.
 
 ### Generated Skill Structure
 
 Each character skill is a self-contained directory:
 
-```
+```text
 <character-slug>/
-├── SKILL.md                    # Executable behavior instructions
+├── SKILL.md
 └── references/
     └── research/
-        ├── 01-setting.md       # World, identity, appearance
-        ├── 02-personality.md   # Behavior patterns, contradictions
-        ├── 03-expression.md    # Speech texture, language markers, canonical lines
-        ├── 04-relationships.md # Social cognition, relationship dynamics
-        └── 05-key-scenes.md    # Pivotal moments, decision logic under pressure
+        ├── 01-setting.md
+        ├── 02-personality.md
+        ├── 03-expression.md
+        ├── 04-relationships.md
+        └── 05-key-scenes.md
 ```
 
-Skills must be **self-contained** — copying the directory is all that's needed to install.
+Copying the whole directory should be enough to install/share the character skill.
 
-### Design Principles
+## Source and Research Rules
 
-- **Executable, not taxonomic** — describe HOW a character behaves, not WHAT labels apply. "Deflects personal topics with sarcasm" not "archetype: tsundere"
-- **Contradictions > consistency** — preserve inner conflicts; they're the source of depth
-- **Behavior > adjectives** — every pattern answers "in what situation → does what → why"
-- **Honest about limits** — never fabricate when sources are thin; label gaps explicitly
-- **Source-grounded** — all research cites URLs; Moegirl Wiki > Wikipedia > Bangumi > AniDB > Fandom; Zhihu, WeChat, Baidu Baike permanently excluded
+CSP is source-grounded. Prefer user-provided official materials first, then public sources:
 
-### Skill Deployment
+| Priority | Sources |
+|---|---|
+| Highest | User-provided official books, interviews, BD extras, subtitles, screenshots, transcripts |
+| High | Moegirl Wiki, Wikipedia, official or franchise Fandom Wiki |
+| Medium | Bangumi, AniDB, game stories, Bilibili high-quality columns, Anime News Network |
+| Low | Fan discussion/community interpretation, clearly marked as speculation |
+| Excluded | Zhihu, WeChat public accounts, Baidu Baike |
 
-Generated skills live in `examples/<slug>/` (source) and are copied to `.claude/skills/<slug>/` (installed). The `.claude/` directory is gitignored.
+Use at least two independent sources for important claims. Preserve conflicts instead of smoothing them over. If public information is thin, label the gap explicitly rather than inventing behavior.
 
-Pre-built examples currently in `examples/`:
+For Moegirlpedia, use `scripts/moegirl_api.py` before trying direct page fetches. Record the command, resolved title, page URL, and any API failure in research files.
 
-- `csp/` — CSP's own self-skill (a CSP-distilled version of CSP). **Self-contained**: bundles its own copies of `scripts/` and `references/` so the skill works standalone when installed. When editing the canonical pipeline files at the repo root (`SKILL.md`, `references/*.md`, `scripts/*.py`), keep `examples/csp/` in sync — otherwise the installable CSP diverges from source. See commit `c8a9d68` for the self-containment fix.
-- BanG Dream! It's MyGO!!!!! members: `takamatsu-tomori/`, `taki-shiina/`, `kaname-rana/`, `nagasaki-soyo/`, `chihaya-anon/`
-- BanG Dream! Ave Mujica members (cross-media with MyGO via CRYCHIC backstory): `togawa-sakiko/`, `mutsumi-wakaba/`, `misumi-uika/`, `yutenji-nyamu/`, `yahata-umiri/`
+## Cross-Media Franchises
 
-### Cross-Media Franchises
+`SKILL.md` has a dedicated branch for cross-work/cross-band characters, including BanG Dream!, Love Live!, Project Sekai, and 少女☆歌剧.
 
-`SKILL.md` has a dedicated branch for "跨作品/跨团角色" (cross-work / cross-band characters) — applies to BanG Dream!, Love Live!, Project Sekai, 少女☆歌剧, etc. For these characters the pipeline expands:
+For these characters:
 
-- Agent 1 (Setting) and Agent 4 (Relationships) must search across all related works the character appears in (anime + spinoff anime + mobile game + stage adaptations).
-- Game/spinoff content (Garupa card stories, Bestdori event scripts, area dialogues) is a legitimate research source at "medium" priority — same tier as Bangumi/AniDB. It's often the richest source of *daily-life* behavior that the main anime doesn't have screen time for.
-- The honesty boundary must declare which works/media the research covered and which it didn't (e.g., "anime only, no Garupa events").
+- Setting and relationship research must cover all relevant works the character appears in, not only one anime season.
+- Game/spinoff material such as Garupa card stories, Bestdori event scripts, and area dialogue is valid medium-priority evidence, especially for daily-life behavior.
+- The honesty boundary must say which media were covered and which were not.
 
-This is a real architectural branch, not scope creep — Sakiko/Mutsumi skills explicitly span MyGO + Ave Mujica + CRYCHIC backstory, and stripping cross-media research would make them shallow. Don't simplify the pipeline by removing this when working in this domain.
+Do not remove or simplify this branch as “scope creep”; it is necessary for characters whose behavior depends on cross-media context.
 
-### Language Strategy
+## Writing Standards for Skills
 
-CSP meta-skill body and generated character skills are in **Chinese** (target users are Chinese-speaking). PRD and planning docs are in English. Japanese and English names/lines are preserved in original where appropriate.
+- Write CSP meta-skill body and generated character skills in Chinese. PRD/planning docs may be English.
+- Preserve Japanese/English names and canonical lines where appropriate.
+- Describe **how the character behaves** in situations, not taxonomy labels like “tsundere”.
+- Preserve contradictions and developmental changes; they are behavior signals, not bugs.
+- Every core behavior pattern should answer: in what situation → does what → why.
+- Generated role-play instructions should sound like natural speech, not essays or PPT outlines. Avoid overusing bold text, dash-linked sentences, and rigid three-part structures in character voice.

@@ -4,9 +4,7 @@
 
 > *"캐릭터 설정을 더 쓰지 마세요. 캐릭터가 직접 말하게 하세요."*
 
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
-[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#설치)
-[![License: CC--BY--4.0](https://img.shields.io/badge/License-CC--BY--4.0-yellow.svg)](#라이선스)
+**상태:** Agent Skills 표준 · Claude Code 런타임 · MIT License
 
 <br>
 
@@ -163,7 +161,7 @@ CSP는 실행 가능한 형태로 쓴다:
 
 ## 라이선스
 
-CC-BY-4.0
+MIT
 
 ---
 

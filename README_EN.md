@@ -4,9 +4,7 @@
 
 > *"Stop writing character profiles. Let the character speak."*
 
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
-[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#install)
-[![License: CC--BY--4.0](https://img.shields.io/badge/License-CC--BY--4.0-yellow.svg)](#license)
+**Status:** Agent Skills standard · Claude Code runtime · MIT License
 
 <br>
 
@@ -176,7 +174,7 @@ python scripts/merge_research.py examples/yahata-umiri/
 
 ## License
 
-CC-BY-4.0
+MIT
 
 ---
 

@@ -4,9 +4,7 @@
 
 > *"Deja de escribir fichas de personaje. Haz que el personaje hable."*
 
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
-[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#instalación)
-[![License: CC--BY--4.0](https://img.shields.io/badge/License-CC--BY--4.0-yellow.svg)](#licencia)
+**Estado:** estándar Agent Skills · runtime Claude Code · licencia MIT
 
 <br>
 
@@ -163,7 +161,7 @@ CSP escribe algo ejecutable:
 
 ## Licencia
 
-CC-BY-4.0
+MIT
 
 ---
 

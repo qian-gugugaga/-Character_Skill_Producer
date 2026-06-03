@@ -228,6 +228,11 @@ def parse_args():
     return parser.parse_args()
 
 
+def emit_json(payload):
+    text = json.dumps(payload, ensure_ascii=False, indent=2) + "\n"
+    sys.stdout.buffer.write(text.encode("utf-8"))
+
+
 def main():
     args = parse_args()
     attempted_modes = []
@@ -265,7 +270,7 @@ def main():
         if args.raw:
             result["raw"] = raw
 
-        print(json.dumps(result, ensure_ascii=False, indent=2))
+        emit_json(result)
         return 0 if result.get("ok") else 1
     except urllib.error.HTTPError as exc:
         result = fallback_error(args.query, "http_error", f"HTTP {exc.code}: {exc.reason}", attempted_modes)
@@ -276,7 +281,7 @@ def main():
     except json.JSONDecodeError as exc:
         result = fallback_error(args.query, "json_decode_error", str(exc), attempted_modes)
 
-    print(json.dumps(result, ensure_ascii=False, indent=2))
+    emit_json(result)
     return 1
 
 
