@@ -6,7 +6,10 @@
 
 > *"캐릭터 설정을 더 쓰지 마세요. 캐릭터가 직접 말하게 하세요."*
 
-**상태:** Agent Skills 표준 · Claude Code 런타임 · Moegirl API 로컬 조사 · MIT License
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
+[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#설치)
+[![Local Research](https://img.shields.io/badge/Local%20Research-Moegirl%20API-orange)](#로컬-조사-우선)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 <br>
 

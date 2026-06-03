@@ -6,7 +6,10 @@
 
 > *「もうキャラクター設定を書くのはやめよう。キャラクター自身に話させよう。」*
 
-**状態:** Agent Skills 標準 · Claude Code ランタイム · Moegirl API によるローカル調査 · MIT License
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
+[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#インストール)
+[![Local Research](https://img.shields.io/badge/Local%20Research-Moegirl%20API-orange)](#ローカル調査優先)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 <br>
 

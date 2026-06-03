@@ -6,7 +6,10 @@
 
 > *「不要再写角色设定了。让角色自己开口。」*
 
-**状态：** Agent Skills 标准 · Claude Code 运行时 · 本地检索支持 Moegirl API · MIT License
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
+[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#安装)
+[![Local Research](https://img.shields.io/badge/Local%20Research-Moegirl%20API-orange)](#本地检索优先)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 <br>
 

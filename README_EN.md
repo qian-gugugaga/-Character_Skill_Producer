@@ -6,7 +6,10 @@
 
 > *"Stop writing character profiles. Let the character speak."*
 
-**Status:** Agent Skills standard · Claude Code runtime · Local research via Moegirl API · MIT License
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-Standard-green)](https://agentskills.io)
+[![Runtime-Claude Code](https://img.shields.io/badge/Runtime-Claude%20Code-blueviolet)](#install)
+[![Local Research](https://img.shields.io/badge/Local%20Research-Moegirl%20API-orange)](#local-research-first)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 <br>
 
