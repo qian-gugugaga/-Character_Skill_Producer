@@ -2,21 +2,21 @@
 
 # Character Skill Producer
 
+### Convierte personajes de anime y videojuegos en Agent Skills ejecutables.
+
 > *"Deja de escribir fichas de personaje. Haz que el personaje hable."*
 
-**Estado:** estándar Agent Skills · runtime Claude Code · licencia MIT
+**Estado:** estándar Agent Skills · runtime Claude Code · investigación local vía Moegirl API · licencia MIT
 
 <br>
 
-**CSP convierte personajes de anime y videojuegos en Agent Skills ejecutables.**
+**CSP destila personajes de anime, manga y videojuegos en skills de comportamiento para conversación, escritura y narrativa interactiva.**
 
-Dale un nombre de personaje y una obra. CSP investiga, valida con varias fuentes, destila patrones de comportamiento y genera un `SKILL.md` instalable con el que puedes conversar directamente.
+Dale un nombre de personaje y una obra. CSP investiga fuentes, valida evidencias, destila patrones de comportamiento, ejecuta comprobaciones de calidad y genera un `SKILL.md` con fecha de investigación, límites de fuentes y ruta de actualización.
 
-No es una ficha de personaje. No es una enciclopedia de lore. No es una lista de etiquetas como "tsundere" o "fría y distante".
+Hoy sirve para conversar con personajes, escribir fanfiction y prototipar escenas o diálogos. En el futuro puede convertirse en la capa de comportamiento de personajes para ficción interactiva con IA, juegos guiados por personajes y flujos creativos de anime/videojuegos.
 
-CSP captura **cómo reacciona el personaje, cómo habla, cómo interpreta a los demás, cómo decide y dónde debe admitir que no sabe.**
-
-[Ejemplos](#ejemplos) · [Instalación](#instalación) · [Qué destila CSP](#qué-destila-csp) · [Cómo funciona](#cómo-funciona) · [Personajes incluidos](#personajes-incluidos)
+[Ejemplos](#ejemplos) · [Filosofía del producto](#filosofía-del-producto) · [Escenarios futuros](#escenarios-futuros) · [Instalación](#instalación) · [Cómo funciona](#cómo-funciona) · [Fechas de investigación](#fechas-de-investigación-y-actualizaciones)
 
 <br>
 
@@ -36,11 +36,11 @@ Solo di:
 
 ```text
 > Genera un skill de Misaka Mikoto de A Certain Scientific Railgun
-> Destila a Maki Shiina de BanG Dream! It's MyGO!!!!!
-> Haz un skill de personaje de Gojo Satoru
+> Destila a Togawa Sakiko de BanG Dream! Ave Mujica
+> Haz un skill de Hitori Gotoh de Bocchi the Rock!
 ```
 
-CSP convierte información de personaje en comportamiento ejecutable. Una vez generado, puedes invocarlo así:
+Una vez generado, puedes invocarlo así:
 
 ```text
 Usuario  ❯ Habla desde la perspectiva de Umiri. ¿Por qué alguien apoyaría a tantas bandas?
@@ -56,7 +56,71 @@ Umiri    ❯ Porque así todo queda claro.
            Eso lo sé.
 ```
 
-Esto no es pegar citas. CSP destila la lógica de comportamiento que sostiene al personaje.
+Esto no es pegar citas. CSP destila la lógica de comportamiento del personaje: cómo maneja relaciones, presión, límites y decisiones.
+
+---
+
+## Filosofía del producto
+
+CSP trata a un personaje como **un sistema de reacción ejecutable**, no como una página de perfil estática.
+
+Una wiki te dice qué le ocurrió al personaje. Una ficha te dice sus rasgos generales. CSP va más allá: cuando el personaje entra en una situación que la obra original nunca escribió, qué nota primero, qué malinterpreta, qué protege, qué rechaza y con qué ritmo habla.
+
+| Lo que CSP codifica | Qué significa |
+|---|---|
+| Lente conductual | Qué nota y qué ignora el personaje |
+| Reglas de reacción | Cuándo se acerca, huye, ataca o guarda silencio |
+| ADN expresivo | Longitud de frases, pausas, distancia honorífica, pronombres, fuga emocional |
+| Algoritmo relacional | Cómo lee bondad, traición, cercanía y ser utilizado |
+| Límite de decisión | Qué protege primero cuando los valores chocan |
+| Límites honestos | Qué no sabe, qué está desactualizado, qué es solo inferencia |
+
+**Lo que puede codificarse se vuelve comportamiento. Lo que no puede codificarse se vuelve límite.** Ese límite también forma parte de la inmersión: un personaje creíble no lo sabe todo ni responde siempre de forma perfecta.
+
+---
+
+## Escenarios futuros
+
+CSP ofrece una capa reutilizable de comportamiento de personajes para creadores.
+
+Hoy puede usarse para:
+
+| Escenario | Uso | Qué aporta CSP |
+|---|---|---|
+| Conversación con personajes | Hablar con un personaje a lo largo del tiempo | Voz estable, distancia relacional, límite de conocimiento |
+| Fanfiction | Redactar diálogos, monólogos internos y escenas breves | Lógica de comportamiento, no solo líneas |
+| Prototipado de escenas | Poner al personaje en una situación nueva | Reacciones inferidas desde patrones de comportamiento |
+| Estudio de personajes | Comparar cómo manejan presión y relaciones | Fuentes trazables y cadena de destilación |
+| Escenas multicaste | Cargar varios personajes en un mismo evento | Límites y lógica de decisión independientes |
+
+Direcciones futuras:
+
+| Dirección | Forma posible |
+|---|---|
+| Ficción interactiva con IA | Personajes que responden de forma consistente a las acciones del jugador |
+| Novela visual / prototipo galgame con IA | Skills que impulsan diálogo ramificado, cambios de afecto y escalada de conflicto |
+| Experimentos narrativos multicaste | Varios skills chocan en un mismo evento y generan drama coral |
+| Mesa de trabajo para creadores | Probar escenas, reescribir diálogos y detectar desvíos OOC |
+| Archivos de personaje actualizables | Nuevas historias actualizan fechas de investigación y patrones de comportamiento |
+
+CSP ofrece a los creadores una capa reutilizable de comportamiento de personajes. Hoy sirve para conversación y fanfiction; mañana puede formar parte de ficción interactiva con IA, juegos guiados por personajes y herramientas creativas de anime/videojuegos.
+
+---
+
+## Investigación local primero
+
+La dirección de CSP es: **las fuentes centrales se obtienen primero con scripts del repositorio; la búsqueda web externa es un complemento.**
+
+Ejemplos actuales:
+
+```bash
+python scripts/source_search.py "高松灯" --work "BanG Dream! It's MyGO!!!!!" --mode discover
+python scripts/source_search.py "能天使" --work "明日方舟" --sources moegirl
+python scripts/moegirl_api.py "高松灯" --search
+python scripts/moegirl_api.py "能天使" --full
+```
+
+La investigación local actual se centra en la API MediaWiki de Moegirl Wiki mediante `source_search.py`. Más adelante se pueden añadir adaptadores para Bangumi, Fandom, Wikipedia, Bestdori y BWIKI. Si falta un adaptador o falla, CSP registra el fallo y permite complementar con búsqueda web o materiales del usuario.
 
 ---
 
@@ -79,8 +143,8 @@ cp -r Character_Skill_Producer/examples/csp ~/.claude/skills/csp
 
 ### Requisitos
 
-- Python, para el helper de la API MediaWiki de Moegirl Wiki
-- Capacidad de búsqueda web, para Wikipedia, Fandom Wiki, Bangumi, Bilibili y fuentes de respaldo
+- Python, para investigación local, generación de metadata y comprobaciones de calidad
+- Capacidad de búsqueda web como respaldo opcional cuando los scripts locales no cubren una fuente
 
 ---
 
@@ -107,37 +171,41 @@ Si tienes materiales oficiales, entrevistas, subtítulos, capturas o texto de hi
 
 ---
 
-## Qué destila CSP
+## Cómo funciona
 
-Una ficha normal diría:
+CSP usa por defecto generación de máxima fidelidad.
 
-> Personalidad: calmada, confiable, distante.
+**1. Descubrimiento local de fuentes** — Ejecuta `scripts/source_search.py` y adaptadores de sitio antes de usar búsqueda externa.
 
-CSP escribe algo ejecutable:
+**2. Índice estructurado de fuentes** — Escribe `references/sources.json` con URLs, niveles de fuente, fechas de consulta, fallos y content hash opcional.
 
-> Cuando se le pide un compromiso a largo plazo, primero traduce la relación en tareas: frecuencia de ensayos, condiciones de salida, quién coordina. No porque no le importe, sino porque los límites operativos la protegen de expectativas emocionales que no puede controlar.
+**3. Cinco líneas de investigación** — Ambientación, personalidad, expresión, relaciones y escenas clave se investigan por separado.
 
-| Capa | Pregunta |
-|---|---|
-| **Dinámica de comportamiento** | Qué hace en cada situación. Cómo cambia bajo presión. |
-| **Textura expresiva** | Longitud de frases, pausas, muletillas, pronombres, distancia honorífica. |
-| **Cognición social** | Cómo lee la bondad, la amenaza, la cercanía y la traición. |
-| **Lógica de decisión** | Qué protege primero cuando los valores chocan. |
-| **Límites honestos** | Qué no sabe el personaje. Qué no sostiene el material original. |
+**4. Destilación conductual** — Los eventos se transforman en patrones de comportamiento reutilizables. Las contradicciones se preservan en lugar de aplanarse.
 
-**CSP no intenta ser una wiki mejor. Intenta hacer que el personaje se sienta vivo.**
+**5. Metadata y límites** — Genera `manifest.json` con fechas de investigación, medios cubiertos, material no cubierto, puntuación de calidad y honesty boundary.
+
+**6. Validación de calidad** — Comprueba ejecutabilidad, textura expresiva, contradicciones, límites honestos, fechas de investigación y reglas de role-play.
+
+```bash
+python scripts/quality_check.py examples/yahata-umiri/
+python scripts/merge_research.py examples/yahata-umiri/
+python scripts/generate_manifest.py examples/yahata-umiri/
+```
 
 ---
 
-## Cómo funciona
+## Fechas de investigación y actualizaciones
 
-**1. Investigación multi-fuente** — Moegirl Wiki, Wikipedia, Fandom Wiki, Bangumi, AniDB, Bilibili, historias de juego y materiales del usuario.
+Cada skill de personaje generado registra la fecha de finalización de la investigación.
 
-**2. Cinco líneas paralelas de análisis** — ambientación, personalidad, expresión, relaciones y escenas clave se investigan por separado.
+Cuando aparece un nuevo episodio, evento de juego, línea, entrevista o revisión de configuración después de esa fecha, el skill antiguo puede no cubrirlo. En ese caso, el personaje debe decir:
 
-**3. Destilación conductual** — los eventos se transforman en patrones de comportamiento reutilizables. Las contradicciones se preservan en lugar de aplanarse.
+```text
+Mis materiales están actualizados hasta YYYY-MM-DD, así que puede que no cubra contenido publicado después. Si tienes la versión más reciente de CSP o puedes proporcionar enlaces a nueva historia / fuentes, puedo ayudarte a actualizar este Skill; esto puede consumir algunos tokens.
+```
 
-**4. Validación de calidad** — se verifica ejecutabilidad, textura expresiva, contradicciones preservadas, límites honestos y reglas completas de role-play.
+CSP actualiza skills antiguos leyendo `manifest.json` y `sources.json`, revisando fuentes centrales, redestilando solo las dimensiones afectadas y renovando la fecha de investigación y el informe de calidad.
 
 ---
 

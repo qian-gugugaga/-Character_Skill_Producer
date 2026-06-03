@@ -2,21 +2,21 @@
 
 # Character Skill Producer
 
+### Turn anime and game characters into runnable Agent Skills.
+
 > *"Stop writing character profiles. Let the character speak."*
 
-**Status:** Agent Skills standard · Claude Code runtime · MIT License
+**Status:** Agent Skills standard · Claude Code runtime · Local research via Moegirl API · MIT License
 
 <br>
 
-**CSP turns anime and game characters into runnable Agent Skills.**
+**CSP distills anime, manga, and game characters into behavior skills for chat, writing, and interactive storytelling.**
 
-Give it a character name and a series. It researches, cross-validates, distills behavior patterns, and generates an installable `SKILL.md` you can talk to directly.
+Give it a character name and a series. CSP researches sources, cross-validates evidence, distills behavior patterns, runs quality checks, and generates a dated `SKILL.md` with source boundaries and an update path.
 
-Not a character card. Not a lore sheet. Not a pile of labels like "tsundere" or "cool and distant".
+Use it today for character chat, fanfiction drafting, and scene/dialogue prototyping. In the future, it can become the character-behavior layer for AI interactive fiction, character-driven games, and anime/game creation workflows.
 
-It captures **how the character reacts, speaks, reads other people, makes decisions, and where they must admit they do not know.**
-
-[Examples](#examples) · [Install](#install) · [What CSP Distills](#what-csp-distills) · [How It Works](#how-it-works) · [Included Characters](#included-characters)
+[Examples](#examples) · [Product Philosophy](#product-philosophy) · [Future Scenarios](#future-scenarios) · [Install](#install) · [How It Works](#how-it-works) · [Research Dates](#research-dates-and-updates)
 
 <br>
 
@@ -36,11 +36,11 @@ Just say:
 
 ```text
 > Generate a Misaka Mikoto skill from A Certain Scientific Railgun
-> Distill Maki Shiina from BanG Dream! It's MyGO!!!!!
-> Make a Gojo Satoru character skill
+> Distill Togawa Sakiko from BanG Dream! Ave Mujica
+> Make a Hitori Gotoh character skill from Bocchi the Rock!
 ```
 
-CSP turns character information into executable behavior. Once generated, a character skill can be invoked like this:
+Once generated, a character skill can be invoked like this:
 
 ```text
 User    ❯ Talk from Umiri's perspective. Why would someone support so many bands?
@@ -56,7 +56,71 @@ Umiri  ❯ Because that makes things clear.
           I know that.
 ```
 
-This is not quote stitching. CSP distills the behavioral logic underneath the character.
+This is not quote stitching. CSP distills the behavioral logic underneath the character: how they handle relationships, pressure, boundaries, and choices.
+
+---
+
+## Product Philosophy
+
+CSP treats a character as **a runnable reaction system**, not a static profile page.
+
+A wiki tells you what happened to a character. A character card tells you their rough traits. CSP goes further: when the character enters a situation the original work never wrote, what do they notice first, what do they misunderstand, what do they protect, what do they refuse, and what rhythm do they use to speak?
+
+| What CSP encodes | What it means |
+|---|---|
+| Behavior lens | What the character notices and ignores |
+| Reaction rules | When they approach, retreat, attack, or go silent |
+| Expression DNA | Sentence length, pauses, honorific distance, pronouns, emotional leakage |
+| Relationship algorithm | How they read kindness, betrayal, closeness, and being used |
+| Decision boundary | What they protect first when values collide |
+| Honest limits | What they do not know, what is outdated, what is only inference |
+
+**What can be encoded becomes behavior. What cannot be encoded becomes a boundary.** That boundary is part of immersion: believable characters do not know everything and do not always answer beautifully.
+
+---
+
+## Future Scenarios
+
+CSP provides a shared character-behavior infrastructure for creators.
+
+Today, it can be used for:
+
+| Scenario | Use | What CSP provides |
+|---|---|---|
+| Character chat | Talk with a character over time | Stable voice, relationship distance, knowledge boundary |
+| Fanfiction writing | Draft dialogue, inner monologue, and short scenes | Behavioral logic, not just lines |
+| Scene prototyping | Place a character in a new situation | Inferred reactions based on behavior patterns |
+| Character study | Compare how characters handle pressure and relationships | Traceable sources and distillation chain |
+| Multi-character scenes | Load multiple characters into one event | Independent boundaries and decision logic |
+
+Future directions:
+
+| Direction | Possible form |
+|---|---|
+| AI interactive fiction | Characters respond consistently to player actions |
+| AI visual novel / galgame prototypes | Character skills drive branching dialogue, affection shifts, and conflict escalation |
+| Multi-character narrative experiments | Several skills collide in one event to generate ensemble drama |
+| Creator workbench | Writers test scenes, rewrite dialogue, and check OOC drift |
+| Updatable character files | New story releases update research dates and behavior patterns |
+
+CSP gives creators a reusable character behavior layer. It serves chat and fan writing today; it can become part of AI interactive fiction, character-driven games, and anime/game creation tooling.
+
+---
+
+## Local Research First
+
+CSP's direction is: **core sources should be fetched by repository scripts first; external web search is a supplement.**
+
+Current examples:
+
+```bash
+python scripts/source_search.py "高松灯" --work "BanG Dream! It's MyGO!!!!!" --mode discover
+python scripts/source_search.py "能天使" --work "明日方舟" --sources moegirl
+python scripts/moegirl_api.py "高松灯" --search
+python scripts/moegirl_api.py "能天使" --full
+```
+
+Current local research focuses on the Moegirl Wiki MediaWiki API through `source_search.py`. More adapters such as Bangumi, Fandom, Wikipedia, Bestdori, and BWIKI can be added later. When an adapter is missing or fails, CSP records the failure and allows web search or user materials to fill the gap.
 
 ---
 
@@ -79,14 +143,8 @@ cp -r Character_Skill_Producer/examples/csp ~/.claude/skills/csp
 
 ### Requirements
 
-- Python, for the Moegirl Wiki MediaWiki API helper
-- Web search capability, for Wikipedia, Fandom Wiki, Bangumi, Bilibili, and fallback sources
-
-```bash
-python scripts/moegirl_api.py "Yahata Umiri"
-python scripts/moegirl_api.py "Yahata Umiri" --search
-python scripts/moegirl_api.py "Yahata Umiri" --full
-```
+- Python, for local research, metadata generation, and quality checks
+- Web search capability as an optional fallback when local scripts cannot cover a source
 
 ---
 
@@ -113,44 +171,41 @@ If you have official materials, interviews, subtitles, screenshots, or game stor
 
 ---
 
-## What CSP Distills
+## How It Works
 
-A normal character card says:
+CSP defaults to highest-fidelity generation.
 
-> Personality: calm, reliable, distant.
+**1. Local source discovery** — Run `scripts/source_search.py` and site adapters before using external search.
 
-CSP writes something executable:
+**2. Structured source index** — Write `references/sources.json` with URLs, source tiers, retrieval dates, failures, and optional content hashes.
 
-> When asked for a long-term commitment, she translates the relationship into tasks first: rehearsal frequency, exit conditions, who coordinates. Not because she does not care, but because operational boundaries protect her from emotional expectations she cannot control.
+**3. Five research tracks** — Setting, personality, expression, relationships, and key scenes are investigated separately.
 
-CSP extracts five layers:
+**4. Behavioral distillation** — Raw events become reusable behavior patterns. Contradictions are preserved instead of flattened.
 
-| Layer | Question |
-|---|---|
-| **Behavior dynamics** | What does the character do in which situation? How do they change under pressure? |
-| **Expression texture** | Sentence length, pauses, pronouns, speech markers, honorific distance |
-| **Social cognition** | How do they read kindness, threat, closeness, and betrayal? |
-| **Decision logic** | What do they protect first when values collide? |
-| **Honest limits** | What does the character not know? What does the source material not support? |
+**5. Metadata and boundaries** — Generate `manifest.json` with research dates, covered media, uncovered material, quality score, and honesty boundary.
 
-**CSP is not trying to be a better wiki. It is trying to make the character feel alive.**
+**6. Quality validation** — Check executability, expression texture, contradictions, honest limits, research dates, and role-play rules.
+
+```bash
+python scripts/quality_check.py examples/yahata-umiri/
+python scripts/merge_research.py examples/yahata-umiri/
+python scripts/generate_manifest.py examples/yahata-umiri/
+```
 
 ---
 
-## How It Works
+## Research Dates and Updates
 
-**1. Multi-source research** — Moegirl Wiki, Wikipedia, Fandom Wiki, Bangumi, AniDB, Bilibili, game stories, and user-provided materials. Zhihu, WeChat articles, and Baidu Baike are excluded by default.
+Every generated character skill records its research completion date.
 
-**2. Five parallel research tracks** — setting, personality, expression, relationships, and key scenes are investigated separately.
+When a new episode, game event, line, interview, or setting revision appears after that date, the old skill may not cover it. The character should then say:
 
-**3. Behavioral distillation** — raw events become reusable behavior patterns. Contradictions are preserved instead of flattened.
-
-**4. Quality validation** — the generated skill is checked for executability, expression texture, preserved contradictions, honest limits, and complete role-play rules.
-
-```bash
-python scripts/quality_check.py examples/yahata-umiri/SKILL.md
-python scripts/merge_research.py examples/yahata-umiri/
+```text
+My materials are updated through YYYY-MM-DD, so I may not cover content released after that. If you have the latest CSP or can provide new story / source links, I can help update this Skill; this may consume some tokens.
 ```
+
+CSP updates old skills by reading `manifest.json` and `sources.json`, re-checking core sources, re-distilling affected dimensions, and refreshing the research date and quality report.
 
 ---
 
