@@ -14,6 +14,17 @@ from source_registry import is_cross_media_work, is_excluded_url, source_hints_f
 ROOT = Path(__file__).resolve().parent
 TODAY = date.today().isoformat()
 
+# BWIKI game slug mapping — mirrors bwiki_api.py GAME_SLUG_MAP
+BWIKI_GAME_SLUGS = {
+    "原神": "ys", "Genshin": "ys",
+    "星穹铁道": "sr", "Star Rail": "sr",
+    "明日方舟": "arknights", "Arknights": "arknights",
+    "蔚蓝档案": "ba", "Blue Archive": "ba",
+    "碧蓝航线": "blhx", "Azur Lane": "blhx",
+    "崩坏3": "bh3", "Honkai Impact": "bh3",
+    "鸣潮": "wutheringwaves", "Wuthering Waves": "wutheringwaves",
+}
+
 
 def sha256_text(text):
     if not text:
@@ -87,6 +98,69 @@ def discover_moegirl(query, work, timeout):
     return normalize_moegirl(raw, query, work)
 
 
+def resolve_bwiki_game(work):
+    """Resolve a work name to a BWIKI game slug."""
+    if not work:
+        return None
+    for name, slug in BWIKI_GAME_SLUGS.items():
+        if name.lower() in work.lower() or work.lower() in name.lower():
+            return slug
+    return None
+
+
+def normalize_bwiki(raw, query, work):
+    url = raw.get("page_url") or raw.get("url")
+    excluded = is_excluded_url(url)
+    extract = raw.get("extract", "") or ""
+    status = "ok" if raw.get("ok") and not excluded else "failed"
+    return {
+        "id": f"bwiki-{raw.get('resolved_title') or query}".replace(" ", "-"),
+        "source": "bwiki",
+        "title": raw.get("resolved_title"),
+        "resolved_title": raw.get("resolved_title"),
+        "url": url,
+        "query": query,
+        "work": work,
+        "source_tier": "excluded" if excluded else source_tier("bwiki"),
+        "officiality": "excluded" if excluded else "secondary",
+        "media_type": "wiki",
+        "language": "zh",
+        "retrieved_at": TODAY,
+        "status": status,
+        "warnings": raw.get("warnings", []),
+        "attempted_modes": raw.get("attempted_modes") or [raw.get("mode")],
+        "retrieved_by": raw.get("retrieved_by"),
+        "pageid": raw.get("pageid"),
+        "extract_chars": raw.get("extract_chars", len(extract)),
+        "content_hash": sha256_text(extract),
+        "error": raw.get("error"),
+    }
+
+
+def discover_bwiki(query, work, timeout):
+    game = resolve_bwiki_game(work)
+    if not game:
+        return {
+            "id": f"bwiki-{query}".replace(" ", "-"),
+            "source": "bwiki",
+            "title": None,
+            "url": None,
+            "query": query,
+            "work": work,
+            "source_tier": source_tier("bwiki"),
+            "officiality": "secondary",
+            "media_type": "wiki",
+            "language": "zh",
+            "retrieved_at": TODAY,
+            "status": "failed",
+            "error": "unknown_game",
+            "warnings": [f"could not resolve BWIKI game slug from work '{work}'; pass --sources bwiki with a known game name"],
+            "attempted_modes": ["discover"],
+        }
+    raw = run_python_script("bwiki_api.py", [query, "--game", game], timeout)
+    return normalize_bwiki(raw, query, work)
+
+
 def placeholder_source(source, query, work, reason="adapter_not_implemented"):
     return {
         "id": f"{source}-{query}".replace(" ", "-"),
@@ -133,6 +207,8 @@ def main():
     for source in requested_sources:
         if source == "moegirl":
             records.append(discover_moegirl(args.query, args.work, args.timeout))
+        elif source == "bwiki":
+            records.append(discover_bwiki(args.query, args.work, args.timeout))
         elif source == "official":
             records.append(placeholder_source(source, args.query, args.work, "manual_or_official_material_required"))
         else:

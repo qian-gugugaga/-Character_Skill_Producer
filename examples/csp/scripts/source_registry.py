@@ -17,7 +17,7 @@ SOURCE_TIERS = {
     "bangumi": "medium",
     "anidb": "medium",
     "bestdori": "medium",
-    "bwiki": "medium",
+    "bwiki": "medium",  # 萌娘百科中文源补充：BWIKI 为 B 站游戏 Wiki，覆盖米哈游系等手游角色数据
     "bilibili_column": "medium",
     "fan_discussion": "low",
 }
@@ -31,6 +31,14 @@ WORK_SOURCE_HINTS = {
     "Genshin Impact": ["official", "moegirl", "bwiki", "fandom"],
     "崩坏：星穹铁道": ["official", "moegirl", "bwiki", "fandom"],
     "Honkai: Star Rail": ["official", "moegirl", "bwiki", "fandom"],
+    "明日方舟": ["official", "moegirl", "bwiki"],
+    "Arknights": ["official", "moegirl", "bwiki"],
+    "蔚蓝档案": ["official", "moegirl", "bwiki"],
+    "Blue Archive": ["official", "moegirl", "bwiki"],
+    "碧蓝航线": ["official", "moegirl", "bwiki"],
+    "Azur Lane": ["official", "moegirl", "bwiki"],
+    "鸣潮": ["official", "moegirl", "bwiki"],
+    "Wuthering Waves": ["official", "moegirl", "bwiki"],
 }
 
 CROSS_MEDIA_WORKS = [
